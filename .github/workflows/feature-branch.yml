@@ -8,30 +8,28 @@ on:
     branches-ignore:
       - master
 
-jobs:
-  build:
-    runs-on: ubuntu-18.04
-    strategy:
-      matrix:
-        # the actual items in the array do not matter,
-        # just the number - to force CI to sping 3 copies
-        # of the current job in parallel
-        machines: [1, 2, 3]
-    steps:
-    - uses: actions/checkout@v1
-    - name: Use Node.js 12.x
-      uses: actions/setup-node@v1
-      with:
-        node-version:  12.x
-    - name: Cypress run
-    uses: cypress-io/github-action@v1
-    with:
-      record: true
-      parallel: true
-      start: npm start
-      wait-on: http://localhost:3000
-    env:
-      # pass the Dashboard record key as an environment variable
-      CYPRESS_RECORD_KEY: ${{ secrets.cypress_key }}
-      # env: 
-      #   key: ${{ secrets.cypress_key }}
+      jobs:
+        test:
+          name: Cypress run
+          runs-on: ubuntu-latest
+          strategy:
+            matrix:
+              # the actual items in the array do not matter,
+              # just the number - to force CI to sping 3 copies
+              # of the current job in parallel
+              machines: [1, 2, 3]
+          steps:
+            - name: Checkout
+              uses: actions/checkout@v1
+      
+            # because of "record" and "parallel" parameters
+            # these machines will load balance all found tests among themselves
+            - name: Cypress run
+              uses: cypress-io/github-action@v1
+              with:
+                record: true
+                parallel: true
+                start: npm start
+              env:
+                # pass the Dashboard record key as an environment variable
+                CYPRESS_RECORD_KEY: ${{ secrets.cyppress_key }}
