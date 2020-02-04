@@ -12,16 +12,25 @@ jobs:
         # of the current job in parallel
         machines: [1, 2, 3]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-      - name: Use Node.js 11.x
-        uses: actions/setup-node@v1
-        with:
-          node-version:  11.x
-      - name: npm CI
-        run: npm ci
-      - name: Cypress run
-        run: npm  run test:cypress
-        env:
-          # pass the Dashboard record key as an environment variable
-          CYPRESS_RECORD_KEY: ${{ secrets.cypress_key }}
+        - name: Checkout
+          uses: actions/checkout@v1
+        - name: Use Node.js 11.x
+          uses: actions/setup-node@v1
+          with:
+            node-version:  11.x
+    #   - name: npm CI
+    #     run: npm ci
+    #   - name: Cypress run
+    #     run: npm  run test:cypress
+    #     env:
+    #       # pass the Dashboard record key as an environment variable
+    #       CYPRESS_RECORD_KEY: ${{ secrets.cypress_key }}
+        - name: Cypress run
+          uses: cypress-io/github-action@v1
+          with:
+            record: true
+            parallel: true
+            start: npm start
+          env:
+      # pass the Dashboard record key as an environment variable
+            CYPRESS_RECORD_KEY: ${{ secrets.cypress_key }}  
