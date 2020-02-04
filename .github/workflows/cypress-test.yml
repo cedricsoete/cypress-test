@@ -14,15 +14,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v1
-
-      # because of "record" and "parallel" parameters
-      # these machines will load balance all found tests among themselves
-      - name: Cypress run
-        uses: cypress-io/github-action@v1
+      - name: Use Node.js 12.x
+        uses: actions/setup-node@v1
         with:
-          record: true
-          parallel: true
-          start: npm start
+          node-version:  12.x
+      - name: npm CI
+        run: npm ci
+      - name: Cypress run
+        run: npm  run test:cypress
         env:
           # pass the Dashboard record key as an environment variable
           CYPRESS_RECORD_KEY: ${{ secrets.cypress_key }}

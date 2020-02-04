@@ -27,7 +27,7 @@
     "format": "prettier --write \"**/*.+(js|json|css)\"",
     "eject": "react-scripts eject",
     "cypress": "cypress",
-    "cy:run": "cypress run  --record --key $key --parallel ",
+    "cy:run": "cypress run  --record --key $CYPRESS_RECORD_KEY --parallel ",
     "test:cypress": "start-server-and-test start http://localhost:3000 cy:run"
   },
   "eslintConfig": {
