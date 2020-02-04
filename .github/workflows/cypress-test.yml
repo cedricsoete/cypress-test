@@ -1,0 +1,47 @@
+name: Parallel Cypress Tests
+on: [push]
+
+jobs:
+  test:
+    name: Cypress run
+    runs-on: ubuntu-16.04
+    strategy:
+      matrix:
+        # the actual items in the array do not matter,
+        # just the number - to force CI to sping 3 copies
+        # of the current job in parallel
+        machines: [1]
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v1
+        - name: Use Node.js 11.x
+          uses: actions/setup-node@v1
+          with:
+            node-version:  11.x
+    #   - name: npm CI
+    #     run: npm ci
+    #   - name: Cypress run
+    #     run: npm  run test:cypress
+    #     env:
+    #       # pass the Dashboard record key as an environment variable
+    #       CYPRESS_RECORD_KEY: ${{ secrets.cypress_key }}
+        - name: Cypress run
+          uses: cypress-io/github-action@v1
+          with:
+            record: true
+            parallel: true
+            start: npm start
+          env:
+      # pass the Dashboard record key as an environment variable
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}  
+        - uses: actions/upload-artifact@v1
+          if: failure()
+          with:
+            name: cypress-screenshots
+            path: cypress/screenshots
+        # Test run video was always captured, so this action uses "always()" condition
+        - uses: actions/upload-artifact@v1
+          if: always()
+          with:
+            name: cypress-videos
+            path: cypress/videos
