@@ -1,9 +1,6 @@
-/// <reference types="Cypress" />
-
 const productName = 'On The Streets Black T-Shirt';
 
 describe('list', () => {
-
     beforeEach(() => {
         cy.visit('http://localhost:3000');
     });
