@@ -17,7 +17,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
-    "start:coverage": "concurrently \"npm run server\" \"react-scripts -r @cypress/instrument-cra start\"",
+    "start:coverage": "concurrently \"nyc --silent npm run server\" \"react-scripts -r @cypress/instrument-cra start\"",
     "start": "concurrently \"npm run server\" \"react-scripts start\"",
     "server": "nodemon server/app",
     "wdio": "wdio",

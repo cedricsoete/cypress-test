@@ -1,3 +1,8 @@
 {
-    "projectId": "rgqh6d"
+    "projectId": "rgqh6d",
+    "env": {
+        "codeCoverage": {
+          "url": "http://localhost:8001/__coverage__"
+        }
+      }
 }

@@ -4,6 +4,7 @@ const express = require('express');
 const cors = require('cors');
 
 const app = express();
+require('@cypress/code-coverage/middleware/express')(app)
 app.use(cors());
 
 const port = 8001;
