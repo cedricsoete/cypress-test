@@ -1,3 +1,37 @@
+## Cypress
+
+### Open Cypress
+
+bash 1
+
+```javascript
+npm run start:covetage
+```
+
+bash 2
+
+```javascript
+npm run cypress -- open
+```
+
+### Start cypress
+
+bash 1
+
+```javascript
+npm run start:covetage
+```
+
+bash 2
+
+```javascript
+npm run cypress -- run
+```
+
+### Coverage
+
+corerage/lcov-report/index.html
+
 ## 🛍️ Simple ecommerce cart application [![CircleCI](https://circleci.com/gh/jeffersonRibeiro/react-shopping-cart.svg?style=svg)](https://circleci.com/gh/jeffersonRibeiro/react-shopping-cart)
 [![All Contributors](https://img.shields.io/badge/all_contributors-5-orange.svg?style=flat-square)](#contributors)
 
