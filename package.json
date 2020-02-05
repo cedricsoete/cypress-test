@@ -7,7 +7,6 @@
     "babel-polyfill": "^6.26.0",
     "concurrently": "^4.0.1",
     "cors": "^2.8.5",
-    "cypress": "^3.8.3",
     "express": "^4.16.4",
     "moxios": "^0.4.0",
     "react": "^16.6.1",
@@ -18,6 +17,7 @@
     "redux-thunk": "^2.3.0"
   },
   "scripts": {
+    "start:mode-test": "concurrently \"npm run server\" \"react-scripts -r @cypress/instrument-cra start\"",
     "start": "concurrently \"npm run server\" \"react-scripts start\"",
     "server": "nodemon server/app",
     "wdio": "wdio",
@@ -27,8 +27,8 @@
     "format": "prettier --write \"**/*.+(js|json|css)\"",
     "eject": "react-scripts eject",
     "cypress": "cypress",
-    "cy:run": "cypress run  --record --key $CYPRESS_RECORD_KEY --parallel ",
-    "test:cypress": "start-server-and-test start http://localhost:3000 cy:run"
+    "cy:run": "cypress run",
+    "test:cypress": "start-server-and-test start:mode-test http://localhost:3000 cy:run"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -48,14 +48,21 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@cypress/code-coverage": "^1.11.0",
+    "@cypress/instrument-cra": "^1.0.0",
+    "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.2.0",
+    "cypress": "^3.8.3",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
     "enzyme-to-json": "^3.3.4",
     "fetch-mock": "^7.2.5",
     "firebase-tools": "^6.2.2",
+    "istanbul": "^0.4.5",
+    "istanbul-lib-coverage": "^3.0.0",
     "node-sass": "^4.10.0",
     "nodemon": "^1.18.6",
+    "nyc": "^15.0.0",
     "prop-types": "^15.6.2",
     "react-test-renderer": "^16.6.3",
     "redux-mock-store": "^1.5.3",
@@ -67,5 +74,13 @@
     "webdriverio": "^4.14.1"
   },
   "keywords": [],
-  "description": "Shopping cart"
+  "description": "Shopping cart",
+  "nyc": {
+    "report-dir": "coverage",
+    "reporter": [
+      "text",
+      "json",
+      "lcov"
+    ]
+  }
 }
